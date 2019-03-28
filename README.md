@@ -14,7 +14,6 @@ List of required variables:
 
 * `_HTTP_HOST` (used for CLI host)
 * `DB_NAME`
-* `DB_TABLE_PREFIX`
 * `DB_USER`
 * `DB_PASSWORD`
 * `AUTH_KEY`
