@@ -29,8 +29,7 @@
       "php": ">=7.1",
       "oscarotero/env": "^1.1",
       "vlucas/phpdotenv": "^3.3",
-      "composer-plugin-api": "^1.1",
-      "johnpbloch/wordpress-core": "*"
+      "composer-plugin-api": "^1.1"
   },
   "extra": {
       "branch-alias": {
