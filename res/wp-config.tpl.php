@@ -59,7 +59,7 @@ array_walk(
 			case 'URL_PRODUCTION':
 				break;
 
-			// Mabe table prefix to the global variable.
+			// Assign table prefix to the $GLOBALS variable.
 			case 'DB_TABLE_PREFIX':
 				$GLOBALS['table_prefix'] = env( $name );
 				break;
