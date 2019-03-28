@@ -1,4 +1,6 @@
-# Composer Plugin to inject wp-config.php
+# composer-wp-config
+
+A composer plugin to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.
 
 ## Installation
 

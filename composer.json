@@ -1,8 +1,17 @@
 {
   "name": "wearerequired/composer-wp-config",
-  "description": "Builds WordPress configuration file to define constants via .env. Automagically injects path of Composer's autoloader as well.",
+  "description": "A composer plugin to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.",
   "license": "MIT",
   "type": "composer-plugin",
+  "keywords": [
+    "wordpress",
+    "wp",
+    "config",
+    "wp-config",
+    "env",
+    "dotenv",
+    "autoload"
+  ],
   "authors": [
     {
       "name": "required",
@@ -17,6 +26,7 @@
     }
   ],
   "require": {
+      "php": ">=7.1",
       "oscarotero/env": "^1.1",
       "vlucas/phpdotenv": "^3.3",
       "composer-plugin-api": "^1.1",
