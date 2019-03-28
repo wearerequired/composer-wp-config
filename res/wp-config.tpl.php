@@ -113,12 +113,7 @@ if ( empty( $table_prefix ) ) {
 /**
  * Object caching.
  */
-defined( 'WP_REDIS_DISABLED' ) or define( 'WP_REDIS_DISABLED', false );
 defined( 'WP_CACHE_KEY_SALT' ) or define( 'WP_CACHE_KEY_SALT', WP_ENV );
-defined( 'WP_REDIS_HOST' ) or define( 'WP_REDIS_HOST', 'localhost' );
-defined( 'WP_REDIS_PORT' ) or define( 'WP_REDIS_PORT', 6379 );
-defined( 'WP_REDIS_BACKEND_HOST' ) or define( 'WP_REDIS_BACKEND_HOST', WP_REDIS_HOST );
-defined( 'WP_REDIS_BACKEND_PORT' ) or define( 'WP_REDIS_BACKEND_PORT', WP_REDIS_PORT );
 
 /**
  * URLs and paths.
