@@ -8,11 +8,11 @@ Via Composer
 composer require johnpbloch/wordpress-core wearerequired/composer-wp-config
 ```
 
-Create an `.env` file. The variables are searched in `../shared/.env`, `../configs/env`, `../.env`, or `./.env`.
+Copy [`.env.example`](res/.env.example) and save it as `.env`. The variables are currently searched relative to `wp-config.php` in `../shared/.env`, `../configs/env`, `../.env`, or `./.env`.
 
-List of required variables:
+### List of required variables
 
-* `_HTTP_HOST` (used for CLI host)
+* `_HTTP_HOST` (Used when `$_SERVER['SERVER_NAME']` is not set, like WP-CLI.)
 * `DB_NAME`
 * `DB_USER`
 * `DB_PASSWORD`
