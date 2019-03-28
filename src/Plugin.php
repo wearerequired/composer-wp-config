@@ -102,7 +102,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		// Get the relative path of the vendor directory to the WordPress installation.
 		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $this->vendorDir );
 
-		$source = dirname( __DIR__ ) . '/rest/wp-config.php';
+		$source = dirname( __DIR__ ) . '/res/wp-config.tpl.php';
 		$dest   = dirname( $wordpressInstallDir ) . '/wp-config.php';
 
 		// Replace template variables.
