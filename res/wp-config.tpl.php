@@ -35,7 +35,6 @@ $dotenv->load();
 $dotenv->required( [
 	'_HTTP_HOST',
 	'DB_NAME',
-	'DB_TABLE_PREFIX',
 	'DB_USER',
 	'DB_PASSWORD',
 	'AUTH_KEY',
