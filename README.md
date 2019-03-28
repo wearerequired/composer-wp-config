@@ -24,7 +24,7 @@ List of required variables:
 * `AUTH_SALT`
 * `SECURE_AUTH_SALT`
 * `LOGGED_IN_SALT`
-* `NONCE_SALT
+* `NONCE_SALT`
 
 ## Features
 * Creates `wp-config.php` one level above the WordPress installation.
