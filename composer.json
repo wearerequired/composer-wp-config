@@ -1,0 +1,38 @@
+{
+		"name": "wearerequired/composer-wp-config",
+		"description": "Builds WordPress configuration file to define constants via .env. Automagically injects path of Composer's autoloader as well.",
+		"license": "MIT",
+		"type": "composer-plugin",
+		"authors": [
+			{
+				"name": "required",
+				"email": "info@required.com",
+				"homepage": "https://required.com",
+				"role": "Company"
+			},
+			{
+				"name": "Dominik Schilling",
+				"email": "dominik@required.com",
+				"role": "Developer"
+			}
+		],
+		"require": {
+				"oscarotero/env": "^1.1",
+				"vlucas/phpdotenv": "^3.3",
+				"composer-plugin-api": "^1.1",
+				"johnpbloch/wordpress-core": "*"
+		},
+		"extra": {
+				"branch-alias": {
+					"dev-master": "0.1.x-dev"
+				},
+				"class": "Required\\WpConfig\\Plugin"
+		},
+		"autoload": {
+				"psr-4": {
+						"Required\\WpConfig\\": "src"
+				}
+		},
+		"minimum-stability": "dev",
+		"prefer-stable": true
+}
