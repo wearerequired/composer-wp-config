@@ -94,6 +94,7 @@ defined( 'WP_ENV' ) or define( 'WP_ENV', 'development' );
 defined( 'QM_DISABLED' ) or define( 'QM_DISABLED', true );
 defined( 'SAVEQUERIES' ) or define( 'SAVEQUERIES', false );
 defined( 'WP_DEBUG' ) or define( 'WP_DEBUG', false );
+defined( 'WP_DISABLE_FATAL_ERROR_HANDLER' ) or define( 'WP_DISABLE_FATAL_ERROR_HANDLER', WP_DEBUG );
 defined( 'WP_DEBUG_LOG' ) or define( 'WP_DEBUG_LOG', false );
 defined( 'WP_DEBUG_DISPLAY' ) or define( 'WP_DEBUG_DISPLAY', false );
 defined( 'SCRIPT_DEBUG' ) or define( 'SCRIPT_DEBUG', false );

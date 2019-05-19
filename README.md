@@ -33,6 +33,7 @@ Copy [`.env.example`](res/.env.example) and save it as `.env`. The variables are
 See also the list of [default constants](#default-constants).
 
 ## Features
+
 * Creates `wp-config.php` one level above the WordPress installation.
 * The `wp-config.php` includes the path to Composer's autoloader.
 * Searches for `.env` file with the help of [PHP dotenv](https://github.com/vlucas/phpdotenv).
@@ -47,7 +48,6 @@ See also the list of [default constants](#default-constants).
 * Allow to change variables not used as a constant via `composer.json`.
 * Let us know what you think is missing…
 
-
 ## Default Constants
 
 If the following variables are not defined they will be assigned a default value:
@@ -58,6 +58,7 @@ If the following variables are not defined they will be assigned a default value
 | `QM_DISABLED` | `true` |
 | `SAVEQUERIES` | `false` |
 | `WP_DEBUG` | `false` |
+| `WP_DISABLE_FATAL_ERROR_HANDLER` | Value of `WP_DEBUG` |
 | `WP_DEBUG_LOG` | `false` |
 | `WP_DEBUG_DISPLAY` | `false` |
 | `SCRIPT_DEBUG` | `false` |
