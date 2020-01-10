@@ -36,9 +36,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	protected $vendorDir = 'vendor';
 
 	/**
-	 * Name of of the WordPress core package.
+	 * Name of the WordPress core package.
 	 */
 	protected const WORDPRESS_CORE_PACKAGE_NAME = 'johnpbloch/wordpress-core';
+
+	/**
+	 * Package name of this plugin.
+	 */
+	protected const PLUGIN_PACKAGE_NAME = 'wearerequired/composer-wp-config';
 
 	/**
 	 * Applies plugin modifications to Composer.
@@ -87,7 +92,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			throw new \Exception( 'Unknown operation: ' . get_class( $operation ) );
 		}
 
-		if ( self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() ) {
+		if (
+			self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() &&
+			self::PLUGIN_PACKAGE_NAME !== $package->getName()
+		) {
 			return;
 		}
 
