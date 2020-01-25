@@ -92,15 +92,19 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			throw new \Exception( 'Unknown operation: ' . get_class( $operation ) );
 		}
 
-		if (
-			self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() &&
-			self::PLUGIN_PACKAGE_NAME !== $package->getName()
-		) {
+		$wordpressPackage = null;
+		if ( self::WORDPRESS_CORE_PACKAGE_NAME === $package->getName() ) {
+			$wordpressPackage = $package;
+		} elseif ( self::PLUGIN_PACKAGE_NAME === $package->getName() ) {
+			$wordpressPackage = $event->getComposer()->getRepositoryManager()->getLocalRepository()->findPackage( self::WORDPRESS_CORE_PACKAGE_NAME, '*' );
+		}
+
+		if ( ! $wordpressPackage ) {
 			return;
 		}
 
 		$installationManager = $event->getComposer()->getInstallationManager();
-		$wordpressInstallDir = $installationManager->getInstallPath( $package );
+		$wordpressInstallDir = $installationManager->getInstallPath( $wordpressPackage );
 
 		if ( ! is_dir( $wordpressInstallDir ) ) {
 			$this->io->write( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
