@@ -29,9 +29,9 @@ global $table_prefix;
  */
 \Env::init(); // Exposes the function env().
 
-$root   = dirname( __DIR__ );
-$dotenv = \Dotenv\Dotenv::create( [ $root . '/shared', $root . '/configs', $root, __DIR__ ] );
-$dotenv->load();
+$root      = dirname( __DIR__ );
+$dotenv    = \Dotenv\Dotenv::createImmutable( [ $root . '/shared', $root . '/configs', $root, __DIR__ ] );
+$variables = $dotenv->load();
 $dotenv->required( [
 	'_HTTP_HOST',
 	'DB_NAME',
@@ -47,7 +47,7 @@ $dotenv->required( [
 	'NONCE_SALT'
 ] )->notEmpty();
 
-$variable_names = $dotenv->getEnvironmentVariableNames();
+$variable_names = array_keys( $variables );
 array_walk(
 	$variable_names,
 	function ( $name ) {
@@ -75,7 +75,7 @@ array_walk(
 		}
 	}
 );
-unset( $root, $dotenv, $variable_names );
+unset( $root, $dotenv, $variables, $variable_names );
 
 /**
  * Environment settings.
