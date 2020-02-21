@@ -1,6 +1,6 @@
 # composer-wp-config
 
-[![Latest Stable Version](https://poser.pugx.org/wearerequired/composer-wp-config/v/stable)](https://packagist.org/wearerequired/composer-wp-config)
+[![Latest Stable Version](https://poser.pugx.org/wearerequired/composer-wp-config/v/stable)](https://packagist.org/packages/wearerequired/composer-wp-config)
 [![Latest Unstable Version](https://poser.pugx.org/wearerequired/composer-wp-config/v/unstable)](https://packagist.org/packages/wearerequired/composer-wp-config)
 
 A plugin for Composer to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.
