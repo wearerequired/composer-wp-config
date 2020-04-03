@@ -91,7 +91,7 @@ $envs = [
 	'staging'     => env( 'URL_STAGING' ),
 	'production'  => env( 'URL_PRODUCTION' ),
 ];
-define( 'ENVIRONMENTS', serialize( $envs ) );
+define( 'ENVIRONMENTS', $envs );
 defined( 'WP_ENV' ) || define( 'WP_ENV', 'development' );
 
 /**
