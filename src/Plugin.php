@@ -1,17 +1,23 @@
 <?php
+/**
+ * Plugin class
+ */
 
 namespace Required\WpConfig;
 
-use Composer\Config;
 use Composer\Composer;
+use Composer\Config;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\PackageEvents;
 use Composer\Installer\PackageEvent;
+use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 
+/**
+ * Class used to hook into Composer.
+ */
 class Plugin implements PluginInterface, EventSubscriberInterface {
 
 	/**
@@ -70,7 +76,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			PackageEvents::POST_PACKAGE_INSTALL => [
 				[ 'copyWpConfig' ],
 			],
-			PackageEvents::POST_PACKAGE_UPDATE => [
+			PackageEvents::POST_PACKAGE_UPDATE  => [
 				[ 'copyWpConfig' ],
 			],
 		];
@@ -89,7 +95,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		} elseif ( $operation instanceof UpdateOperation ) {
 			$package = $operation->getTargetPackage();
 		} else {
-			throw new \Exception( 'Unknown operation: ' . get_class( $operation ) );
+			throw new \Exception( 'Unknown operation: ' . \get_class( $operation ) );
 		}
 
 		$wordpressPackage = null;
@@ -121,10 +127,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$wpConfig = file_get_contents( $source );
 		$wpConfig = str_replace(
 			[
-				'{{{VENDOR_DIR}}}'
+				'{{{VENDOR_DIR}}}',
 			],
 			[
-				$vendorDirRelative
+				$vendorDirRelative,
 			],
 			$wpConfig
 		);
@@ -142,6 +148,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * Returns the target path as relative reference from the base path.
 	 *
 	 * Part of the Symfony package licensed under the MIT License.
+	 *
 	 * @link https://github.com/symfony/Routing/blob/1a19ff2/Generator/UrlGenerator.php#L290-L339
 	 *
 	 * @param string $basePath   The base path.
@@ -157,7 +164,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$targetDirs = explode( '/', isset( $targetPath[0] ) && '/' === $targetPath[0] ? substr( $targetPath, 1 ) : $targetPath );
 		array_pop( $sourceDirs );
 
-		$targetFile = array_pop($targetDirs);
+		$targetFile = array_pop( $targetDirs );
 		foreach ( $sourceDirs as $i => $dir ) {
 			if ( isset( $targetDirs[ $i ] ) && $dir === $targetDirs[ $i ] ) {
 				unset( $sourceDirs[ $i ], $targetDirs[ $i ] );
@@ -168,14 +175,16 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 		$targetDirs[] = $targetFile;
 
-		$path = str_repeat( '../', count( $sourceDirs ) ) . implode( '/', $targetDirs );
+		$path = str_repeat( '../', \count( $sourceDirs ) ) . implode( '/', $targetDirs );
 
 		// A reference to the same base directory or an empty subdirectory must be prefixed with "./".
 		// This also applies to a segment with a colon character (e.g., "file:colon") that cannot be used
 		// as the first segment of a relative-path reference, as it would be mistaken for a scheme name
 		// (see http://tools.ietf.org/html/rfc3986#section-4.2).
+		// phpcs:disable
 		return '' === $path || '/' === $path[0]
 			|| false !== ( $colonPos = strpos( $path, ':' ) ) && ( $colonPos < ( $slashPos = strpos( $path, '/' ) ) || false === $slashPos )
 			? "./$path" : $path;
+		// phpcs:enable
 	}
 }
