@@ -40,6 +40,7 @@ See also the list of [default constants](#default-constants).
 * Defines all variables as constants unless a constant is already set.
 * Defines reasonable default values for database, object cache, debug, URL, and path constants.
 * Use `{{DIR}}` as placeholder in variable values to get it replaced with `__DIR__` of `wp-config.php`.
+* Supports `URL_DEVELOPMENT`, `URL_STAGING`, and `URL_PRODUCTION` for [WordPress Stage Switcher](https://github.com/roots/wp-stage-switcher). Requires at least v2.1.
 
 ## Planned Features
 
