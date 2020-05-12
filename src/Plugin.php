@@ -67,6 +67,30 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	}
 
 	/**
+	 * Removes any hooks from Composer.
+	 *
+	 * This will be called when a plugin is deactivated before being
+	 * uninstalled, but also before it gets upgraded to a new version
+	 * so the old one can be deactivated and the new one activated.
+	 *
+	 * @param \Composer\Composer       $composer Composer.
+	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
+	 */
+	public function deactivate( Composer $composer, IOInterface $io ) {
+	}
+
+	/**
+	 * Prepares the plugin to be uninstalled.
+	 *
+	 * This will be called after deactivate.
+	 *
+	 * @param \Composer\Composer       $composer Composer.
+	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
+	 */
+	public function uninstall( Composer $composer, IOInterface $io ) {
+	}
+
+	/**
 	 * Subscribes to package update/install events
 	 *
 	 * @return array Subscribed events.
