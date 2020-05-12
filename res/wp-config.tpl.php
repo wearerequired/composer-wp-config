@@ -74,7 +74,9 @@ array_walk(
 			default:
 				if ( ! defined( $name ) ) {
 					$value = env( $name );
-					$value = str_replace( '{{DIR}}', __DIR__, $value );
+					if ( is_string( $value ) ) {
+						$value = str_replace( '{{DIR}}', __DIR__, $value );
+					}
 					define( $name, $value );
 				}
 				break;
