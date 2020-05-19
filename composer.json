@@ -1,8 +1,7 @@
 {
   "name": "wearerequired/composer-wp-config",
-  "description": "A composer plugin to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.",
-  "license": "MIT",
   "type": "composer-plugin",
+  "description": "A composer plugin to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.",
   "keywords": [
     "wordpress",
     "wp",
@@ -12,6 +11,7 @@
     "dotenv",
     "autoload"
   ],
+  "license": "MIT",
   "authors": [
     {
       "name": "required",
@@ -26,22 +26,24 @@
     }
   ],
   "require": {
-      "php": ">=7.1",
-      "oscarotero/env": "^1.1",
-      "vlucas/phpdotenv": "^4.1",
-      "composer-plugin-api": "^1.1"
+    "php": ">=7.1",
+    "composer-plugin-api": "^1.0 || ^2.0",
+    "oscarotero/env": "^1.1",
+    "vlucas/phpdotenv": "^4.1"
+  },
+  "require-dev": {
+    "composer/composer": "1.6.* || 2.0.*@dev",
+    "composer/semver": "1.0.* || 2.0.*@dev"
   },
   "extra": {
-      "branch-alias": {
-          "dev-master": "1.0-dev"
-      },
-      "class": "Required\\WpConfig\\Plugin"
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "class": "Required\\WpConfig\\Plugin"
   },
   "autoload": {
-      "psr-4": {
-          "Required\\WpConfig\\": "src"
-      }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "psr-4": {
+      "Required\\WpConfig\\": "src"
+    }
+  }
 }
