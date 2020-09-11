@@ -28,7 +28,7 @@
   "require": {
     "php": ">=7.1",
     "composer-plugin-api": "^1.0 || ^2.0",
-    "oscarotero/env": "^2.0",
+    "oscarotero/env": "^2.1",
     "vlucas/phpdotenv": "^5.1"
   },
   "require-dev": {
