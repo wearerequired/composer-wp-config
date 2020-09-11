@@ -33,8 +33,15 @@ global $table_prefix;
  * - Check for required variables.
  * - Define constant for each variable if not already defined.
  */
-$root      = dirname( __DIR__ );
-$dotenv    = Dotenv::createUnsafeImmutable( [ $root . '/shared', $root . '/configs', $root, __DIR__ ] );
+$root  = dirname( __DIR__ );
+$paths = [];
+foreach ( [ $root . '/shared', $root . '/configs', $root, __DIR__ ] as $path ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Gets unset afterwards.
+	if ( is_readable( $path . '/.env' ) ) {
+		$paths[] = $path;
+	}
+}
+
+$dotenv    = Dotenv::createUnsafeImmutable( $paths );
 $variables = $dotenv->load();
 $dotenv->required(
 	[
@@ -84,7 +91,7 @@ array_walk(
 		}
 	}
 );
-unset( $root, $dotenv, $variables, $variable_names );
+unset( $root, $paths, $path, $dotenv, $variables, $variable_names );
 
 /**
  * Environment settings.

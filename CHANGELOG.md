@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 * Update PHP dotenv dependency to v5.1.
 * Update env dependency to v2.1.
+* Only pass readable `.env` files to Dotenv to avoid a (suppressed) PHP warning by `Dotenv\Store\File\Reader::readFromFile()`.
 
 ## [0.3.1] - 2020-05-12
 
