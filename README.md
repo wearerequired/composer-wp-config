@@ -56,6 +56,7 @@ If the following variables are not defined they will be assigned a default value
 | Variable | Default Value |
 |--------------------|------------------------------------|
 | `WP_ENV` | `'development'` |
+| `WP_ENVIRONMENT_TYPE` | Value of `WP_ENV` |
 | `QM_DISABLED` | `true` |
 | `SAVEQUERIES` | `false` |
 | `WP_DEBUG` | `false` |

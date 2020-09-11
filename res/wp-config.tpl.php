@@ -96,6 +96,7 @@ $envs = [
 ];
 define( 'ENVIRONMENTS', $envs );
 defined( 'WP_ENV' ) || define( 'WP_ENV', 'development' );
+defined( 'WP_ENVIRONMENT_TYPE' ) || define( 'WP_ENVIRONMENT_TYPE', WP_ENV );
 
 /**
  * Debugging settings.
