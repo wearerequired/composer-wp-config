@@ -76,7 +76,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * @param \Composer\Composer       $composer Composer.
 	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
 	 */
-	public function deactivate( Composer $composer, IOInterface $io ) {
+	public function deactivate( Composer $composer, IOInterface $io ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 	}
 
 	/**
@@ -87,7 +87,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 * @param \Composer\Composer       $composer Composer.
 	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
 	 */
-	public function uninstall( Composer $composer, IOInterface $io ) {
+	public function uninstall( Composer $composer, IOInterface $io ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 	}
 
 	/**
