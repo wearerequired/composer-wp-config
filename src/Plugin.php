@@ -103,7 +103,34 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			PackageEvents::POST_PACKAGE_UPDATE  => [
 				[ 'copyWpConfig' ],
 			],
+			PackageEvents::POST_PACKAGE_UNINSTALL  => [
+				[ 'deleteWpConfig' ],
+			],
 		];
+	}
+
+	/**
+	 * Deletes wp-config.php after WordPress is being uninstalled.
+	 *
+	 * @param \Composer\Installer\PackageEvent $event The current event.
+	 */
+	public function deleteWpConfig( PackageEvent $event ) {
+		/** @var \Composer\DependencyResolver\Operation\UninstallOperation $operation */
+		$operation = $event->getOperation();
+		$package   = $operation->getPackage();
+
+		if ( self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() ) {
+			return;
+		}
+
+		$installationManager = $event->getComposer()->getInstallationManager();
+		$wordpressInstallDir = $installationManager->getInstallPath( $package );
+		$wpConfigFile        = dirname( $wordpressInstallDir ) . '/wp-config.php';
+
+		if ( is_file( $wpConfigFile ) ) {
+			unlink( $wpConfigFile );
+			$this->io->writeError( '    wp-config.php has been removed.' );
+		}
 	}
 
 	/**
