@@ -164,7 +164,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$wordpressInstallDir = $installationManager->getInstallPath( $wordpressPackage );
 
 		if ( ! is_dir( $wordpressInstallDir ) ) {
-			$this->io->write( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
+			$this->io->writeError( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
 			return;
 		}
 
@@ -189,9 +189,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$copied = file_put_contents( $dest, $wpConfig );
 
 		if ( false !== $copied ) {
-			$this->io->write( '    wp-config.php has been copied to ' . $dest );
+			$this->io->writeError( '    wp-config.php has been copied to ' . $dest . '.' );
 		} else {
-			$this->io->write( '<error>wp-config.php could not be copied to ' . $dest . '</warning>' );
+			$this->io->writeError( '<error>wp-config.php could not be copied to ' . $dest . '.</error>' );
 		}
 	}
 
