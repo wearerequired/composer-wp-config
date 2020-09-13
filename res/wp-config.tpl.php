@@ -22,26 +22,18 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X
 /**
  * Require Composer's autoloader.
  */
-require_once __DIR__ . '/{{{VENDOR_DIR}}}/autoload.php';
+require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
 
 global $table_prefix;
 
 /**
  * Environment variables.
  *
- * - Load from `../shared/.env`, `../configs/.env`, `../.env`, or `./.env`.
+ * - Load from `.env`.
  * - Check for required variables.
  * - Define constant for each variable if not already defined.
  */
-$root  = dirname( __DIR__ );
-$paths = [];
-foreach ( [ $root . '/shared', $root . '/configs', $root, __DIR__ ] as $path ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Gets unset afterwards.
-	if ( is_readable( $path . '/.env' ) ) {
-		$paths[] = $path;
-	}
-}
-
-$dotenv    = Dotenv::createUnsafeImmutable( $paths );
+$dotenv    = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
 $variables = $dotenv->load();
 $dotenv->required(
 	[

@@ -171,6 +171,27 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		// Get the relative path of the vendor directory to the WordPress installation.
 		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $this->vendorDir );
 
+		$env_paths_code = [];
+		$extra = $this->composer->getPackage()->getExtra();
+		if ( ! empty( $extra['wp-config-env-paths'] ) ) {
+			$env_paths = (array) $extra['wp-config-env-paths'];
+
+			foreach( $env_paths as $env_path ) {
+				$env_path = ltrim( $env_path, '/' );
+				if ( $env_path ) {
+					$env_paths_code[] = sprintf(
+						// Don't use __DIR__ as it will cause a parse error in PluginManager.
+						'realpath( __DI' . 'R__ . \'%s\' )',
+						'/' . ltrim( $env_path, '/' )
+					);
+				} else {
+					$env_paths_code[] = '__DI' . 'R__';
+				}
+			}
+		} else {
+			$env_paths_code[] = '__DI' . 'R__';
+		}
+
 		$source = dirname( __DIR__ ) . '/res/wp-config.tpl.php';
 		$dest   = dirname( $wordpressInstallDir ) . '/wp-config.php';
 
@@ -178,10 +199,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$wpConfig = file_get_contents( $source );
 		$wpConfig = str_replace(
 			[
-				'{{{VENDOR_DIR}}}',
+				'___WP_CONFIG_VENDOR_DIR___',
+				'___WP_CONFIG_ENV_PATHS___',
 			],
 			[
 				$vendorDirRelative,
+				'[ ' . implode( ', ', $env_paths_code ) . ' ]'
 			],
 			$wpConfig
 		);
