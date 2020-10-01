@@ -189,7 +189,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 				}
 			}
 		} else {
-			$env_paths_code[] = '__DI' . 'R__';
+			$env_paths_code[] = '__DI' . 'R__'; // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
 		}
 
 		$source = dirname( __DIR__ ) . '/res/wp-config.tpl.php';
