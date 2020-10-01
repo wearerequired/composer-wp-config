@@ -97,13 +97,40 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			PackageEvents::POST_PACKAGE_INSTALL => [
+			PackageEvents::POST_PACKAGE_INSTALL   => [
 				[ 'copyWpConfig' ],
 			],
-			PackageEvents::POST_PACKAGE_UPDATE  => [
+			PackageEvents::POST_PACKAGE_UPDATE    => [
 				[ 'copyWpConfig' ],
+			],
+			PackageEvents::POST_PACKAGE_UNINSTALL => [
+				[ 'deleteWpConfig' ],
 			],
 		];
+	}
+
+	/**
+	 * Deletes wp-config.php after WordPress is being uninstalled.
+	 *
+	 * @param \Composer\Installer\PackageEvent $event The current event.
+	 */
+	public function deleteWpConfig( PackageEvent $event ) {
+		/** @var \Composer\DependencyResolver\Operation\UninstallOperation $operation */
+		$operation = $event->getOperation();
+		$package   = $operation->getPackage();
+
+		if ( self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() ) {
+			return;
+		}
+
+		$installationManager = $event->getComposer()->getInstallationManager();
+		$wordpressInstallDir = $installationManager->getInstallPath( $package );
+		$wpConfigFile        = dirname( $wordpressInstallDir ) . '/wp-config.php';
+
+		if ( is_file( $wpConfigFile ) ) {
+			unlink( $wpConfigFile );
+			$this->io->writeError( '    wp-config.php has been removed.' );
+		}
 	}
 
 	/**
@@ -137,12 +164,33 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$wordpressInstallDir = $installationManager->getInstallPath( $wordpressPackage );
 
 		if ( ! is_dir( $wordpressInstallDir ) ) {
-			$this->io->write( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
+			$this->io->writeError( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
 			return;
 		}
 
 		// Get the relative path of the vendor directory to the WordPress installation.
 		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $this->vendorDir );
+
+		$env_paths_code = [];
+		$extra          = $this->composer->getPackage()->getExtra();
+		if ( ! empty( $extra['wp-config-env-paths'] ) ) {
+			$env_paths = (array) $extra['wp-config-env-paths'];
+
+			foreach ( $env_paths as $env_path ) {
+				$env_path = ltrim( $env_path, '/' );
+				if ( $env_path ) {
+					$env_paths_code[] = sprintf(
+						// Don't use __DIR__ as it will cause a parse error in Composer\Plugin\PluginManager.
+						'realpath( __DI' . 'R__ . \'%s\' )', // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
+						'/' . ltrim( $env_path, '/' )
+					);
+				} else {
+					$env_paths_code[] = '__DI' . 'R__'; // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
+				}
+			}
+		} else {
+			$env_paths_code[] = '__DI' . 'R__'; // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
+		}
 
 		$source = dirname( __DIR__ ) . '/res/wp-config.tpl.php';
 		$dest   = dirname( $wordpressInstallDir ) . '/wp-config.php';
@@ -151,10 +199,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$wpConfig = file_get_contents( $source );
 		$wpConfig = str_replace(
 			[
-				'{{{VENDOR_DIR}}}',
+				'___WP_CONFIG_VENDOR_DIR___',
+				'___WP_CONFIG_ENV_PATHS___',
 			],
 			[
 				$vendorDirRelative,
+				'[ ' . implode( ', ', $env_paths_code ) . ' ]',
 			],
 			$wpConfig
 		);
@@ -162,9 +212,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$copied = file_put_contents( $dest, $wpConfig );
 
 		if ( false !== $copied ) {
-			$this->io->write( '    wp-config.php has been copied to ' . $dest );
+			$this->io->writeError( '    wp-config.php has been copied to ' . $dest . '.' );
 		} else {
-			$this->io->write( '<error>wp-config.php could not be copied to ' . $dest . '</warning>' );
+			$this->io->writeError( '<error>wp-config.php could not be copied to ' . $dest . '.</error>' );
 		}
 	}
 

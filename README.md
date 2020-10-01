@@ -13,7 +13,7 @@ Via Composer
 composer require johnpbloch/wordpress-core wearerequired/composer-wp-config
 ```
 
-Copy [`.env.example`](res/.env.example) and save it as `.env`. The variables are searched relative to `wp-config.php` in `../shared/.env`, `../configs/env`, `../.env`, or `./.env`.
+Copy [`.env.example`](res/.env.example) and save it as `.env`. By default the variables are searched in a `.env` file in the same directory as `wp-config.php` .
 
 ### List of required variables
 
@@ -32,6 +32,22 @@ Copy [`.env.example`](res/.env.example) and save it as `.env`. The variables are
 
 See also the list of [default constants](#default-constants).
 
+### Customize path to .env file
+You can override the path(s) with the following extra in your `composer.json`:
+
+```json
+{
+    "extra": {
+        "wp-config-env-paths": [
+            "../",
+            "../configs"
+        ]
+    }
+}
+```
+
+Note that the path must be relative to the `wp-config.php` file.
+
 ## Features
 
 * Creates `wp-config.php` one level above the WordPress installation.
@@ -44,7 +60,6 @@ See also the list of [default constants](#default-constants).
 
 ## Planned Features
 
-* Make path for `.env` file customizable via `composer.json`.
 * Allow to change required variables via `composer.json`.
 * Allow to change variables not used as a constant via `composer.json`.
 * Let us know what you think is missing…

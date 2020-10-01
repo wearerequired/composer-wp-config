@@ -8,11 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Define `WP_ENVIRONMENT_TYPE` with the value of `WP_ENV` for WordPress 5.5 support.
+* Support Composer 2.0.
+* Delete `wp-config.php` after WordPress package is removed.
 
 ### Changed
-* Update PHP dotenv dependency to v5.1.
-* Update env dependency to v2.1.
-* Only pass readable `.env` files to Dotenv to avoid a (suppressed) PHP warning by `Dotenv\Store\File\Reader::readFromFile()`.
+* Change default path for `.env` file to only search next to `wp-config.php`. Use `wp-config-env-paths` to change the path(s).
+* Update PHP dotenv dependency from v4.1 to v5.1.
+* Update env dependency from v1.1 to v2.1.
 
 ## [0.3.1] - 2020-05-12
 
