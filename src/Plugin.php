@@ -97,13 +97,13 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 */
 	public static function getSubscribedEvents() {
 		return [
-			PackageEvents::POST_PACKAGE_INSTALL => [
+			PackageEvents::POST_PACKAGE_INSTALL   => [
 				[ 'copyWpConfig' ],
 			],
-			PackageEvents::POST_PACKAGE_UPDATE  => [
+			PackageEvents::POST_PACKAGE_UPDATE    => [
 				[ 'copyWpConfig' ],
 			],
-			PackageEvents::POST_PACKAGE_UNINSTALL  => [
+			PackageEvents::POST_PACKAGE_UNINSTALL => [
 				[ 'deleteWpConfig' ],
 			],
 		];
@@ -172,20 +172,20 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $this->vendorDir );
 
 		$env_paths_code = [];
-		$extra = $this->composer->getPackage()->getExtra();
+		$extra          = $this->composer->getPackage()->getExtra();
 		if ( ! empty( $extra['wp-config-env-paths'] ) ) {
 			$env_paths = (array) $extra['wp-config-env-paths'];
 
-			foreach( $env_paths as $env_path ) {
+			foreach ( $env_paths as $env_path ) {
 				$env_path = ltrim( $env_path, '/' );
 				if ( $env_path ) {
 					$env_paths_code[] = sprintf(
-						// Don't use __DIR__ as it will cause a parse error in PluginManager.
-						'realpath( __DI' . 'R__ . \'%s\' )',
+						// Don't use __DIR__ as it will cause a parse error in Composer\Plugin\PluginManager.
+						'realpath( __DI' . 'R__ . \'%s\' )', // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
 						'/' . ltrim( $env_path, '/' )
 					);
 				} else {
-					$env_paths_code[] = '__DI' . 'R__';
+					$env_paths_code[] = '__DI' . 'R__'; // phpcs:ignore Generic.Strings.UnnecessaryStringConcat.Found
 				}
 			}
 		} else {
@@ -204,7 +204,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			],
 			[
 				$vendorDirRelative,
-				'[ ' . implode( ', ', $env_paths_code ) . ' ]'
+				'[ ' . implode( ', ', $env_paths_code ) . ' ]',
 			],
 			$wpConfig
 		);
