@@ -40,7 +40,7 @@ You can override the path(s) with the following extra in your `composer.json`:
     "extra": {
         "wp-config-env-paths": [
             "../",
-            "../configs",
+            "../configs"
         ]
     }
 }
