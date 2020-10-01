@@ -20,15 +20,4 @@
 	<rule ref="Squiz.Commenting.FunctionCommentThrowTag.Missing">
 		<exclude-pattern>/src/Plugin\.php</exclude-pattern>
 	</rule>
-
-	<!-- Allow the use of filesystem functions. -->
-	<rule ref="WordPress.WP.AlternativeFunctions">
-		<properties>
-			<property name="exclude" type="array">
-				<element value="file_get_contents"/>
-				<element value="file_system_read"/>
-				<element value="file_put_contents"/>
-			</property>
-		</properties>
-	</rule>
 </ruleset>
