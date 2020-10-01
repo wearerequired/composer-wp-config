@@ -83,7 +83,7 @@ array_walk(
 		}
 	}
 );
-unset( $root, $paths, $path, $dotenv, $variables, $variable_names );
+unset( $dotenv, $variables, $variable_names );
 
 /**
  * Environment settings.
