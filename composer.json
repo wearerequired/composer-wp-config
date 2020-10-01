@@ -33,11 +33,13 @@
   },
   "require-dev": {
     "composer/composer": "1.6.* || 2.0.*@dev",
-    "composer/semver": "^1 || ^3"
+    "composer/semver": "^1 || ^3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "wearerequired/coding-standards": "^1.5"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0-dev"
+      "dev-master": "0.4.x-dev"
     },
     "class": "Required\\WpConfig\\Plugin"
   },
@@ -45,5 +47,9 @@
     "psr-4": {
       "Required\\WpConfig\\": "src"
     }
+  },
+  "scripts": {
+    "format": "vendor/bin/phpcbf --report-summary --report-source .",
+    "lint": "vendor/bin/phpcs --report-summary --report-source ."
   }
 }
