@@ -13,12 +13,14 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
+use Composer\Package\PackageInterface;
+use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 
 /**
  * Class used to hook into Composer.
  */
-class Plugin implements PluginInterface, EventSubscriberInterface {
+class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 
 	/**
 	 * Composer.
@@ -35,21 +37,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	protected $io;
 
 	/**
-	 * Vendor directory.
-	 *
-	 * @var string
-	 */
-	protected $vendorDir = 'vendor';
-
-	/**
 	 * Name of the WordPress core package.
 	 */
-	protected const WORDPRESS_CORE_PACKAGE_NAME = 'johnpbloch/wordpress-core';
+	public const WORDPRESS_CORE_PACKAGE_NAME = 'johnpbloch/wordpress-core';
 
 	/**
 	 * Package name of this plugin.
 	 */
-	protected const PLUGIN_PACKAGE_NAME = 'wearerequired/composer-wp-config';
+	public const PLUGIN_PACKAGE_NAME = 'wearerequired/composer-wp-config';
 
 	/**
 	 * Applies plugin modifications to Composer.
@@ -60,10 +55,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	public function activate( Composer $composer, IOInterface $io ) {
 		$this->composer = $composer;
 		$this->io       = $io;
-
-		$config = $this->composer->getConfig();
-
-		$this->vendorDir = $config->get( 'vendor-dir', Config::RELATIVE_PATHS ) ?? $this->vendorDir;
 	}
 
 	/**
@@ -98,14 +89,20 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	public static function getSubscribedEvents() {
 		return [
 			PackageEvents::POST_PACKAGE_INSTALL   => [
-				[ 'copyWpConfig' ],
+				[ 'copyWpConfigOnPackageInstall' ],
 			],
 			PackageEvents::POST_PACKAGE_UPDATE    => [
-				[ 'copyWpConfig' ],
+				[ 'copyWpConfigOnPackageInstall' ],
 			],
 			PackageEvents::POST_PACKAGE_UNINSTALL => [
-				[ 'deleteWpConfig' ],
+				[ 'deleteWpConfigOnPackageUninstall' ],
 			],
+		];
+	}
+
+	public function getCapabilities() {
+		return [
+			'Composer\Plugin\Capability\CommandProvider' => 'Required\WpConfig\CommandProvider',
 		];
 	}
 
@@ -114,7 +111,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
 	 */
-	public function deleteWpConfig( PackageEvent $event ) {
+	public function deleteWpConfigOnPackageUninstall( PackageEvent $event ) {
 		/** @var \Composer\DependencyResolver\Operation\UninstallOperation $operation */
 		$operation = $event->getOperation();
 		$package   = $operation->getPackage();
@@ -138,7 +135,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
 	 */
-	public function copyWpConfig( PackageEvent $event ) {
+	public function copyWpConfigOnPackageInstall( PackageEvent $event ) {
 		$operation = $event->getOperation();
 
 		if ( $operation instanceof InstallOperation ) {
@@ -160,19 +157,32 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 			return;
 		}
 
-		$installationManager = $event->getComposer()->getInstallationManager();
+		self::copyWpConfig( $this->composer, $wordpressPackage, $this->io );
+	}
+
+	/**
+	 * Copies wp-config.php to the WordPress installation directory.
+	 *
+	 * @param \Composer\Composer                $composer         Composer.
+	 * @param Composer\Package\PackageInterface $wordpressPackage WordPress package..
+	 * @param \Composer\IO\IOInterface          $io               Input/Output helper interface.
+	 */
+	public static function copyWpConfig( Composer $composer, PackageInterface $wordpressPackage, IOInterface $io ) {
+		$installationManager = $composer->getInstallationManager();
 		$wordpressInstallDir = $installationManager->getInstallPath( $wordpressPackage );
 
 		if ( ! is_dir( $wordpressInstallDir ) ) {
-			$this->io->writeError( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
-			return;
+			$io->writeError( '<warning>The installation path of WordPress seems to be broken. wp-config.php not copied.</warning>' );
+			return false;
 		}
 
 		// Get the relative path of the vendor directory to the WordPress installation.
-		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $this->vendorDir );
+		$config            = $composer->getConfig();
+		$vendorDir         = $config->get( 'vendor-dir', Config::RELATIVE_PATHS ) ?? 'vendor';
+		$vendorDirRelative = self::getRelativePath( '/' . $wordpressInstallDir, '/' . $vendorDir );
 
 		$env_paths_code = [];
-		$extra          = $this->composer->getPackage()->getExtra();
+		$extra          = $composer->getPackage()->getExtra();
 		if ( ! empty( $extra['wp-config-env-paths'] ) ) {
 			$env_paths = (array) $extra['wp-config-env-paths'];
 
@@ -211,11 +221,13 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
 		$copied = file_put_contents( $dest, $wpConfig );
 
-		if ( false !== $copied ) {
-			$this->io->writeError( '    wp-config.php has been copied to ' . $dest . '.' );
-		} else {
-			$this->io->writeError( '<error>wp-config.php could not be copied to ' . $dest . '.</error>' );
+		if ( false === $copied ) {
+			$io->writeError( '<error>wp-config.php could not be copied to ' . $dest . '.</error>' );
+			return false;
 		}
+
+		$io->writeError( '    wp-config.php has been copied to ' . $dest . '.' );
+		return true;
 	}
 
 	/**

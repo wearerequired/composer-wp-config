@@ -46,7 +46,7 @@ You can override the path(s) with the following extra in your `composer.json`:
 }
 ```
 
-Note that the path must be relative to the `wp-config.php` file.
+Note that the path must be relative to the `wp-config.php` file. Run `composer build-wp-config` to rebuild the `wp-config.php` file.
 
 ## Features
 
