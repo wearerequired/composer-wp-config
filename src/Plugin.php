@@ -100,6 +100,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 		];
 	}
 
+	/**
+	 * Announces plugin's API implementations.
+	 *
+	 * @return string[]
+	 */
 	public function getCapabilities() {
 		return [
 			'Composer\Plugin\Capability\CommandProvider' => 'Required\WpConfig\CommandProvider',
@@ -163,9 +168,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	/**
 	 * Copies wp-config.php to the WordPress installation directory.
 	 *
-	 * @param \Composer\Composer                $composer         Composer.
-	 * @param Composer\Package\PackageInterface $wordpressPackage WordPress package..
-	 * @param \Composer\IO\IOInterface          $io               Input/Output helper interface.
+	 * @param \Composer\Composer                 $composer         Composer.
+	 * @param \Composer\Package\PackageInterface $wordpressPackage WordPress package..
+	 * @param \Composer\IO\IOInterface           $io               Input/Output helper interface.
 	 */
 	public static function copyWpConfig( Composer $composer, PackageInterface $wordpressPackage, IOInterface $io ) {
 		$installationManager = $composer->getInstallationManager();

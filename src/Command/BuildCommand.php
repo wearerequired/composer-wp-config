@@ -23,9 +23,11 @@ class BuildCommand extends BaseCommand {
 	/**
 	 * Executes the command.
 	 *
+	 * @param \Command\Symfony\Component\Console\Input\InputInterface  $input Input interface.
+	 * @param \Command\Symfony\Component\Console\Input\OutputInterface $output Input interface.
 	 * @return int 0 if everything went fine, or an exit code.
 	 */
-	protected function execute( InputInterface $input, OutputInterface $output ) {
+	protected function execute( InputInterface $input, OutputInterface $output ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		$composer         = $this->getComposer();
 		$wordpressPackage = $composer->getRepositoryManager()->getLocalRepository()->findPackage( Plugin::WORDPRESS_CORE_PACKAGE_NAME, '*' );
 
