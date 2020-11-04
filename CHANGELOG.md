@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Define `WP_ENVIRONMENT_TYPE` with the value of `WP_ENV` for WordPress 5.5 support.
 * Support Composer 2.0.
 * Delete `wp-config.php` after WordPress package is removed.
+* Add `composer build-wp-config` command to rebuild `wp-config.php` file.
 
 ### Changed
 * Change default path for `.env` file to only search next to `wp-config.php`. Use `wp-config-env-paths` to change the path(s).
