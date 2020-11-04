@@ -9,15 +9,12 @@
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase">
-		<exclude-pattern>/src/Plugin\.php</exclude-pattern>
+		<exclude-pattern>/src/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase">
-		<exclude-pattern>/src/Plugin\.php</exclude-pattern>
+		<exclude-pattern>/src/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase">
-		<exclude-pattern>/src/Plugin\.php</exclude-pattern>
-	</rule>
-	<rule ref="Squiz.Commenting.FunctionCommentThrowTag.Missing">
-		<exclude-pattern>/src/Plugin\.php</exclude-pattern>
+		<exclude-pattern>/src/*</exclude-pattern>
 	</rule>
 </ruleset>

@@ -138,6 +138,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	/**
 	 * Copies wp-config.php after WordPress is being installed or updated.
 	 *
+	 * @throws \Exception For unknown operations.
+	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
 	 */
 	public function copyWpConfigOnPackageInstall( PackageEvent $event ) {

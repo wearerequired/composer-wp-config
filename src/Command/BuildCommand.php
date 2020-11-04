@@ -10,6 +10,9 @@ use Required\WpConfig\Plugin;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class used to provide the build-wp-config command.
+ */
 class BuildCommand extends BaseCommand {
 
 	/**
@@ -22,6 +25,8 @@ class BuildCommand extends BaseCommand {
 
 	/**
 	 * Executes the command.
+	 *
+	 * @throws \RuntimeException When WordPress package not found.
 	 *
 	 * @param \Command\Symfony\Component\Console\Input\InputInterface  $input Input interface.
 	 * @param \Command\Symfony\Component\Console\Input\OutputInterface $output Input interface.

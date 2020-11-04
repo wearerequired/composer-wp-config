@@ -7,6 +7,9 @@ namespace Required\WpConfig;
 
 use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
 
+/**
+ * Class used to provide Composer commands.
+ */
 class CommandProvider implements CommandProviderCapability {
 
 	/**
