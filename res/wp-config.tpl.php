@@ -8,6 +8,9 @@
 use Dotenv\Dotenv;
 use function Env\env;
 
+// phpcs:ignore
+$is_debug = isset( $_GET['__debug'] );
+
 /**
  * Adjust HTTPS and IP detection.
  */
@@ -17,6 +20,11 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 
 if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
 	$_SERVER['HTTPS'] = 'on';
+}
+
+if ( $is_debug ) {
+	// phpcs:ignore
+	ini_set( 'display_errors', 1 );
 }
 
 /**
@@ -51,6 +59,13 @@ $dotenv->required(
 		'NONCE_SALT',
 	]
 )->notEmpty();
+
+if ( $is_debug ) {
+	// phpcs:ignore
+	var_dump( $variables );
+	// phpcs:ignore
+	var_dump( get_defined_constants( true ) );
+}
 
 $variable_names = array_keys( $variables );
 array_walk(
@@ -149,6 +164,13 @@ defined( 'WP_SITEURL' ) || define( 'WP_SITEURL', WP_HOME );
 
 defined( 'WP_CONTENT_DIR' ) || define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
 defined( 'WP_CONTENT_URL' ) || define( 'WP_CONTENT_URL', WP_HOME . '/content' );
+
+if ( $is_debug ) {
+	// phpcs:ignore
+	var_dump( get_defined_constants( true ) );
+
+	exit;
+}
 
 /**
  * Sets up WordPress vars and included files.
