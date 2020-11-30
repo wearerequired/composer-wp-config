@@ -25,6 +25,10 @@ if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X
 if ( $is_debug ) {
 	// phpcs:ignore
 	ini_set( 'display_errors', 1 );
+	// phpcs:ignore
+	var_dump( $_SERVER );
+	// phpcs:ignore
+	var_dump( $_ENV );
 }
 
 /**
