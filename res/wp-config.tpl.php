@@ -55,7 +55,7 @@ $dotenv->required(
 $variable_names = array_keys( $variables );
 array_walk(
 	$variable_names,
-	function ( $name ) {
+	function ( string $name ): void {
 		switch ( $name ) {
 			// Some variables are not used as a constant.
 			case '_HTTP_HOST':

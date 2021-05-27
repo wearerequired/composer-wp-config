@@ -13,11 +13,11 @@ use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
 class CommandProvider implements CommandProviderCapability {
 
 	/**
-	 * Retrieves an array of commands
+	 * Retrieves an array of commands.
 	 *
-	 * @return \Composer\Command\BaseCommand[]
+	 * @return \Composer\Command\BaseCommand[] List of commands.
 	 */
-	public function getCommands() {
+	public function getCommands(): array {
 		return [ new Command\BuildCommand() ];
 	}
 }

@@ -18,7 +18,7 @@ class BuildCommand extends BaseCommand {
 	/**
 	 * Configures the command.
 	 */
-	protected function configure() {
+	protected function configure(): void {
 		$this->setName( 'build-wp-config' );
 		$this->setDescription( 'Builds wp-config.php and copies it to the WordPress installation directory.' );
 	}
@@ -32,7 +32,7 @@ class BuildCommand extends BaseCommand {
 	 * @param \Command\Symfony\Component\Console\Input\OutputInterface $output Input interface.
 	 * @return int 0 if everything went fine, or an exit code.
 	 */
-	protected function execute( InputInterface $input, OutputInterface $output ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	protected function execute( InputInterface $input, OutputInterface $output ): int { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		$composer         = $this->getComposer();
 		$wordpressPackage = $composer->getRepositoryManager()->getLocalRepository()->findPackage( Plugin::WORDPRESS_CORE_PACKAGE_NAME, '*' );
 

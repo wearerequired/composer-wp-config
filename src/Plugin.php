@@ -52,7 +52,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 * @param \Composer\Composer       $composer Composer.
 	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
 	 */
-	public function activate( Composer $composer, IOInterface $io ) {
+	public function activate( Composer $composer, IOInterface $io ): void {
 		$this->composer = $composer;
 		$this->io       = $io;
 	}
@@ -67,7 +67,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 * @param \Composer\Composer       $composer Composer.
 	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
 	 */
-	public function deactivate( Composer $composer, IOInterface $io ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function deactivate( Composer $composer, IOInterface $io ): void { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 	}
 
 	/**
@@ -78,15 +78,15 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 * @param \Composer\Composer       $composer Composer.
 	 * @param \Composer\IO\IOInterface $io       Input/Output helper interface.
 	 */
-	public function uninstall( Composer $composer, IOInterface $io ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function uninstall( Composer $composer, IOInterface $io ): void { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 	}
 
 	/**
 	 * Subscribes to package update/install events
 	 *
-	 * @return array Subscribed events.
+	 * @return array<string,mixed> Subscribed events.
 	 */
-	public static function getSubscribedEvents() {
+	public static function getSubscribedEvents(): array {
 		return [
 			PackageEvents::POST_PACKAGE_INSTALL   => [
 				[ 'copyWpConfigOnPackageInstall' ],
@@ -105,7 +105,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 *
 	 * @return string[]
 	 */
-	public function getCapabilities() {
+	public function getCapabilities(): array {
 		return [
 			'Composer\Plugin\Capability\CommandProvider' => 'Required\WpConfig\CommandProvider',
 		];
@@ -116,7 +116,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
 	 */
-	public function deleteWpConfigOnPackageUninstall( PackageEvent $event ) {
+	public function deleteWpConfigOnPackageUninstall( PackageEvent $event ): void {
 		/** @var \Composer\DependencyResolver\Operation\UninstallOperation $operation */
 		$operation = $event->getOperation();
 		$package   = $operation->getPackage();
@@ -142,7 +142,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
 	 */
-	public function copyWpConfigOnPackageInstall( PackageEvent $event ) {
+	public function copyWpConfigOnPackageInstall( PackageEvent $event ): void {
 		$operation = $event->getOperation();
 
 		if ( $operation instanceof InstallOperation ) {
@@ -173,8 +173,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 * @param \Composer\Composer                 $composer         Composer.
 	 * @param \Composer\Package\PackageInterface $wordpressPackage WordPress package..
 	 * @param \Composer\IO\IOInterface           $io               Input/Output helper interface.
+	 * @return bool True on success, false on failure.
 	 */
-	public static function copyWpConfig( Composer $composer, PackageInterface $wordpressPackage, IOInterface $io ) {
+	public static function copyWpConfig( Composer $composer, PackageInterface $wordpressPackage, IOInterface $io ): bool {
 		$installationManager = $composer->getInstallationManager();
 		$wordpressInstallDir = $installationManager->getInstallPath( $wordpressPackage );
 
@@ -248,7 +249,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	 * @param string $targetPath The target path.
 	 * @return string The relative target path.
 	 */
-	public static function getRelativePath( $basePath, $targetPath ) {
+	public static function getRelativePath( string $basePath, string $targetPath ): string {
 		if ( $basePath === $targetPath ) {
 			return '';
 		}
