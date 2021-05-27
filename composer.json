@@ -35,7 +35,7 @@
     "composer/composer": "^2.0",
     "composer/semver": "^3.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-    "wearerequired/coding-standards": "^1.5"
+    "wearerequired/coding-standards": "^2.1"
   },
   "extra": {
     "branch-alias": {
