@@ -58,17 +58,11 @@ Note that the path must be relative to the `wp-config.php` file. Run `composer b
 * Use `{{DIR}}` as placeholder in variable values to get it replaced with `__DIR__` of `wp-config.php`.
 * Supports `URL_DEVELOPMENT`, `URL_STAGING`, and `URL_PRODUCTION` for [WordPress Stage Switcher](https://github.com/roots/wp-stage-switcher). Requires at least v2.1.
 
-## Planned Features
-
-* Allow to change required variables via `composer.json`.
-* Allow to change variables not used as a constant via `composer.json`.
-* Let us know what you think is missing…
-
 ## Default Constants
 
 If the following variables are not defined they will be assigned a default value:
 
-| Variable | Default Value |
+| Variable name | Default value |
 |--------------------|------------------------------------|
 | `WP_ENV` | `'development'` |
 | `WP_ENVIRONMENT_TYPE` | Value of `WP_ENV` |
@@ -85,7 +79,17 @@ If the following variables are not defined they will be assigned a default value
 | `DB_COLLATE` | `''` |
 | `$table_prefix` | `'wp_'` |
 | `WP_CACHE_KEY_SALT` | Value of `WP_ENV` |
-| `WP_HOME` | Based on `$_SERVER['SERVER_NAME']` |
-| `WP_SITEURL` |  Value of `WP_SITEURL` |
+| `WP_HOME` | Based on `$_SERVER['SERVER_NAME']`/`_HTTP_HOST` and `$_SERVER['HTTPS']` |
+| `WP_SITEURL` |  Value of `WP_HOME` |
 | `WP_CONTENT_DIR` | `__DIR__ . '/content'` |
 | `WP_CONTENT_URL` | `WP_HOME . '/content'` |
+
+## Planned Features
+
+* Allow to change required variables via `composer.json`.
+* Allow to change variables not used as a constant via `composer.json`.
+* Let us know what you think is missing…
+
+<br>
+
+[![a required open source product - let's get in touch](https://media.required.com/images/open-source-banner.png)](https://required.com/en/lets-get-in-touch/)
