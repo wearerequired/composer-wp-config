@@ -130,8 +130,8 @@ defined( 'WP_CACHE_KEY_SALT' ) || define( 'WP_CACHE_KEY_SALT', WP_ENV );
  * URLs and paths.
  */
 if ( ! defined( 'WP_HOME' ) ) {
-	$server = filter_input_array(
-		INPUT_SERVER,
+	$server = filter_var_array(
+		$_SERVER,
 		[
 			'HTTPS'       => FILTER_SANITIZE_STRING,
 			'SERVER_NAME' => FILTER_SANITIZE_URL,
