@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2021-06-11
+
+### Fixed
+* Fix fallback detection for `WP_HOME` if entries in the superglobal `$_SERVER` are set manually, like `$_SERVER['HTTPS']`.
+
 ## [0.5.0] - 2021-05-28
 
 ### Changed
@@ -45,7 +50,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create `wp-config.php` one level above the WordPress installation.
 * Include `require_once` call for Composer's `autoload.php`.
 
-[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/wearerequired/composer-wp-config/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/wearerequired/composer-wp-config/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/wearerequired/composer-wp-config/compare/0.3.1...0.4.0
 [0.3.1]: https://github.com/wearerequired/composer-wp-config/compare/0.3.0...0.3.1
