@@ -9,6 +9,13 @@ use Dotenv\Dotenv;
 use function Env\env;
 
 /**
+ * Load a file that is automatically parsed before this config file.
+ */
+if ( is_readable( __DIR__ . '/wp-config-prepend.php' ) ) {
+	require_once __DIR__ . '/wp-config-prepend.php';
+}
+
+/**
  * Adjust HTTPS and IP detection.
  */
 if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
@@ -151,6 +158,14 @@ defined( 'WP_CONTENT_DIR' ) || define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
 defined( 'WP_CONTENT_URL' ) || define( 'WP_CONTENT_URL', WP_HOME . '/content' );
 
 /**
- * Sets up WordPress vars and included files.
+ * Load a file that is automatically parsed after this config file
+ * but before WordPress is loaded.
+ */
+if ( is_readable( __DIR__ . '/wp-config-append.php' ) ) {
+	require_once __DIR__ . '/wp-config-append.php';
+}
+
+/**
+ * Set up WordPress vars and included files.
  */
 require_once ABSPATH . 'wp-settings.php';
