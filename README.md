@@ -73,7 +73,7 @@ If the following variables are not defined they will be assigned a default value
 | `WP_DEBUG_LOG` | `false` |
 | `WP_DEBUG_DISPLAY` | `false` |
 | `SCRIPT_DEBUG` | `false` |
-| `DISALLOW_FILE_MODS` | `false` |
+| `DISALLOW_FILE_MODS` | `true` |
 | `DB_HOST` | `'localhost'` |
 | `DB_CHARSET` | `'utf8'` |
 | `DB_COLLATE` | `''` |
