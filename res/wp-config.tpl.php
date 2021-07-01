@@ -9,6 +9,11 @@ use Dotenv\Dotenv;
 use function Env\env;
 
 /**
+ * Load the WordPress plugin API early so hooks can be used.
+ */
+require_once ABSPATH . '/wp-includes/plugin.php';
+
+/**
  * Load a file that is automatically parsed before this config file.
  */
 if ( is_readable( __DIR__ . '/wp-config-prepend.php' ) ) {

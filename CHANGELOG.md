@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Add support for automatically loading a file before (`wp-config-prepend.php`) and after (`wp-config-append.php`) the default config.
+* Load WordPress plugin API early so actions and filters can be used in `wp-config.php`, `wp-config-prepend.php`, and `wp-config-append.php`.
 
 ## [0.5.1] - 2021-06-11
 
