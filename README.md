@@ -10,7 +10,7 @@ A plugin for Composer to create the WordPress configuration file which automagic
 Via Composer
 
 ```
-composer require johnpbloch/wordpress-core wearerequired/composer-wp-config
+composer require johnpbloch/wordpress wearerequired/composer-wp-config
 ```
 
 Copy [`.env.example`](res/.env.example) and save it as `.env`. By default the variables are searched in a `.env` file in the same directory as `wp-config.php` .
@@ -33,6 +33,7 @@ Copy [`.env.example`](res/.env.example) and save it as `.env`. By default the va
 See also the list of [default constants](#default-constants).
 
 ### Customize path to .env file
+
 You can override the path(s) with the following extra in your `composer.json`:
 
 ```json
@@ -57,6 +58,8 @@ Note that the path must be relative to the `wp-config.php` file. Run `composer b
 * Defines reasonable default values for database, object cache, debug, URL, and path constants.
 * Use `{{DIR}}` as placeholder in variable values to get it replaced with `__DIR__` of `wp-config.php`.
 * Supports `URL_DEVELOPMENT`, `URL_STAGING`, and `URL_PRODUCTION` for [WordPress Stage Switcher](https://github.com/roots/wp-stage-switcher). Requires at least v2.1.
+* Supports loading `wp-config-prepend.php` before and `wp-config-append.php` after the default config as part of `wp-config.php`.
+* Loads the WordPress plugin API early so actions and filters can be used.
 
 ## Default Constants
 
