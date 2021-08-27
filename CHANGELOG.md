@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-* Require composer's autoloader before wp-config-prepend.php allowing for use of all available libraries.
+* Require Composer's autoloader before `wp-config-prepend.php` allowing for use of all available libraries.
 
 ## [0.6.0] - 2021-07-01
 
