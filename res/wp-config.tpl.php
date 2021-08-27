@@ -9,6 +9,11 @@ use Dotenv\Dotenv;
 use function Env\env;
 
 /**
+ * Require Composer's autoloader.
+ */
+require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
+
+/**
  * Load the WordPress plugin API early so hooks can be used.
  */
 require_once ABSPATH . '/wp-includes/plugin.php';
@@ -30,11 +35,6 @@ if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) {
 	$_SERVER['HTTPS'] = 'on';
 }
-
-/**
- * Require Composer's autoloader.
- */
-require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
 
 global $table_prefix;
 
