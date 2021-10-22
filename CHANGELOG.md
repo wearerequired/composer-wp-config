@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2021-10-22
+### Fixed
+* Fix empty constants by falling back to `Dotenv::createArrayBacked()` if `Dotenv::createUnsafeImmutable()` returns an empty array.
+
 ### Changed
 * Require Composer's autoloader before `wp-config-prepend.php` allowing for use of all available libraries.
 
@@ -61,7 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create `wp-config.php` one level above the WordPress installation.
 * Include `require_once` call for Composer's `autoload.php`.
 
-[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/wearerequired/composer-wp-config/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/wearerequired/composer-wp-config/compare/0.5.0...0.6.0
 [0.5.1]: https://github.com/wearerequired/composer-wp-config/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/wearerequired/composer-wp-config/compare/0.4.0...0.5.0
