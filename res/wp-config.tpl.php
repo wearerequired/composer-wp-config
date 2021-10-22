@@ -42,10 +42,16 @@ global $table_prefix;
  * Environment variables.
  *
  * - Load from `.env`.
+ * 	- If environment variables are set, create an array. Happens when wp-config.php is loaded again.
+ *  - If environment variables are not set, set as environment variables.
  * - Check for required variables.
  * - Define constant for each variable if not already defined.
  */
-$dotenv    = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
+if ( env( '_HTTP_HOST' ) ) {
+	$dotenv = Dotenv::createArrayBacked( ___WP_CONFIG_ENV_PATHS___ );
+} else {
+	$dotenv = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
+}
 $variables = $dotenv->load();
 $dotenv->required(
 	[
