@@ -47,10 +47,10 @@ global $table_prefix;
  * - Check for required variables.
  * - Define constant for each variable if not already defined.
  */
-$dotenv = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
+$dotenv    = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
 $variables = $dotenv->load();
 if ( empty( $variables ) ) {
-	$dotenv = Dotenv::createArrayBacked( ___WP_CONFIG_ENV_PATHS___ );
+	$dotenv    = Dotenv::createArrayBacked( ___WP_CONFIG_ENV_PATHS___ );
 	$variables = $dotenv->load();
 }
 $variables = $dotenv->load();
