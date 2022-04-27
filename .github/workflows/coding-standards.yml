@@ -45,7 +45,7 @@ jobs:
         run: echo "${PWD}/vendor/bin" >> $GITHUB_PATH
 
       - name: Run linters
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
           continue_on_error: false
           php_codesniffer: true
