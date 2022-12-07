@@ -112,7 +112,7 @@ $envs = [
 	'staging'     => env( 'URL_STAGING' ),
 	'production'  => env( 'URL_PRODUCTION' ),
 ];
-define( 'ENVIRONMENTS', $envs );
+defined( 'ENVIRONMENTS' ) || define( 'ENVIRONMENTS', $envs );
 defined( 'WP_ENV' ) || define( 'WP_ENV', 'development' );
 defined( 'WP_ENVIRONMENT_TYPE' ) || define( 'WP_ENVIRONMENT_TYPE', WP_ENV );
 
