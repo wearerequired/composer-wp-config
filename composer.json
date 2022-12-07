@@ -1,7 +1,8 @@
 {
   "name": "wearerequired/composer-wp-config",
-  "type": "composer-plugin",
   "description": "A composer plugin to create the WordPress configuration file which automagically defines constants from a .env file. Also includes path of Composer's autoloader in wp-config.php.",
+  "license": "MIT",
+  "type": "composer-plugin",
   "keywords": [
     "wordpress",
     "wp",
@@ -11,7 +12,6 @@
     "dotenv",
     "autoload"
   ],
-  "license": "MIT",
   "authors": [
     {
       "name": "required",
@@ -37,16 +37,21 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
     "wearerequired/coding-standards": "^3.0"
   },
+  "autoload": {
+    "psr-4": {
+      "Required\\WpConfig\\": "src"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
   "extra": {
     "branch-alias": {
       "dev-master": "0.7.x-dev"
     },
     "class": "Required\\WpConfig\\Plugin"
-  },
-  "autoload": {
-    "psr-4": {
-      "Required\\WpConfig\\": "src"
-    }
   },
   "scripts": {
     "format": "vendor/bin/phpcbf --report-summary --report-source .",
