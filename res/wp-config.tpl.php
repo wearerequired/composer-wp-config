@@ -152,7 +152,7 @@ if ( ! defined( 'WP_HOME' ) ) {
 	$server = filter_var_array(
 		$_SERVER,
 		[
-			'HTTPS'       => FILTER_SANITIZE_STRING,
+			'HTTPS'       => FILTER_UNSAFE_RAW,
 			'SERVER_NAME' => FILTER_SANITIZE_URL,
 		]
 	);
