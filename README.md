@@ -84,8 +84,9 @@ If the following variables are not defined they will be assigned a default value
 | `WP_CACHE_KEY_SALT` | Value of `WP_ENV` |
 | `WP_HOME` | Based on `$_SERVER['SERVER_NAME']`/`_HTTP_HOST` and `$_SERVER['HTTPS']` |
 | `WP_SITEURL` |  Value of `WP_HOME` |
-| `WP_CONTENT_DIR` | `__DIR__ . '/content'` |
-| `WP_CONTENT_URL` | `WP_HOME . '/content'` |
+| `WP_CONTENT_FOLDER_NAME` | `'content'` |
+| `WP_CONTENT_DIR` | `__DIR__ . '/' . WP_CONTENT_FOLDER_NAME` |
+| `WP_CONTENT_URL` | `WP_HOME . '/' . WP_CONTENT_FOLDER_NAME` |
 
 ## Planned Features
 
