@@ -81,6 +81,7 @@ array_walk(
 			case 'URL_DEVELOPMENT':
 			case 'URL_STAGING':
 			case 'URL_PRODUCTION':
+			case 'WP_CONTENT_FOLDER_NAME':
 				break;
 
 			// Assign table prefix to the $GLOBALS variable.
@@ -166,8 +167,12 @@ if ( ! defined( 'WP_HOME' ) ) {
 
 defined( 'WP_SITEURL' ) || define( 'WP_SITEURL', WP_HOME );
 
-defined( 'WP_CONTENT_DIR' ) || define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
-defined( 'WP_CONTENT_URL' ) || define( 'WP_CONTENT_URL', WP_HOME . '/content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) || ! defined( 'WP_CONTENT_URL' ) ) {
+	$wp_content_folder_name = env( 'WP_CONTENT_FOLDER_NAME' ) ?: 'content';
+	define( 'WP_CONTENT_DIR', __DIR__ . '/' . $wp_content_folder_name );
+	define( 'WP_CONTENT_URL', WP_HOME . '/' . $wp_content_folder_name );
+	unset( $wp_content_folder_name );
+}
 
 /**
  * Load a file that is automatically parsed after this config file
