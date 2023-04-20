@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.8.0] - 2023-04-20
 
 ### Added
 * Add support for `WP_CONTENT_FOLDER_NAME` variable to customize the default value `content`.
@@ -77,7 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create `wp-config.php` one level above the WordPress installation.
 * Include `require_once` call for Composer's `autoload.php`.
 
-[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.7.1...HEAD
+[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/wearerequired/composer-wp-config/compare/0.7.1...0.8.0
 [0.7.1]: https://github.com/wearerequired/composer-wp-config/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/wearerequired/composer-wp-config/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/wearerequired/composer-wp-config/compare/0.5.0...0.6.0
