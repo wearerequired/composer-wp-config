@@ -34,7 +34,7 @@
   "require-dev": {
     "composer/composer": "^2.0",
     "composer/semver": "^3.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7 || ^1.0",
     "wearerequired/coding-standards": "^5.0"
   },
   "autoload": {
