@@ -9,14 +9,14 @@ use Dotenv\Dotenv;
 use function Env\env;
 
 /**
- * Require Composer's autoloader.
- */
-require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
-
-/**
  * Load the WordPress plugin API early so hooks can be used.
  */
 require_once ABSPATH . '/wp-includes/plugin.php';
+
+/**
+ * Require Composer's autoloader.
+ */
+require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
 
 /**
  * Load a file that is automatically parsed before this config file.
