@@ -21,7 +21,7 @@ require_once __DIR__ . '/___WP_CONFIG_VENDOR_DIR___/autoload.php';
 /**
  * Fires after Composer's autoloader is loaded.
  */
-do_action( 'required.wp_config.autoloader_loaded' );
+do_action( 'required_wp_config.autoloader_loaded' );
 
 /**
  * Load a file that is automatically parsed before this config file.
@@ -190,7 +190,7 @@ if ( is_readable( __DIR__ . '/wp-config-append.php' ) ) {
 /**
  * Fires before the wp-settings.php file is loaded.
  */
-do_action( 'required.wp_config.pre_load_wp_settings' );
+do_action( 'required_wp_config.pre_load_wp_settings' );
 
 /**
  * Set up WordPress vars and included files.
