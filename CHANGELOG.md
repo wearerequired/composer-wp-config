@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-08-15
+
+### Added
+* Introduce `required_wp_config.env_paths` and `required_wp_config.env_names` hooks.
+
 ## [1.0.0] - 2024-03-26
 
 ### Added
@@ -87,8 +92,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create `wp-config.php` one level above the WordPress installation.
 * Include `require_once` call for Composer's `autoload.php`.
 
-[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/1.0.0...HEAD
-[0.9.0]: https://github.com/wearerequired/composer-wp-config/compare/0.9.0...1.0.0
+[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/wearerequired/composer-wp-config/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/wearerequired/composer-wp-config/compare/0.9.0...1.0.0
 [0.9.0]: https://github.com/wearerequired/composer-wp-config/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/wearerequired/composer-wp-config/compare/0.7.1...0.8.0
 [0.7.1]: https://github.com/wearerequired/composer-wp-config/compare/0.7.0...0.7.1
