@@ -52,10 +52,12 @@ global $table_prefix;
  * - Check for required variables.
  * - Define constant for each variable if not already defined.
  */
-$dotenv    = Dotenv::createUnsafeImmutable( ___WP_CONFIG_ENV_PATHS___ );
+$env_paths = apply_filters( 'required_wp_config.env_paths', ___WP_CONFIG_ENV_PATHS___ );
+$env_names = apply_filters( 'required_wp_config.env_names', [] );
+$dotenv    = Dotenv::createUnsafeImmutable( $env_paths, $env_names );
 $variables = $dotenv->load();
 if ( empty( $variables ) ) {
-	$dotenv    = Dotenv::createArrayBacked( ___WP_CONFIG_ENV_PATHS___ );
+	$dotenv    = Dotenv::createArrayBacked( $env_paths, $env_names );
 	$variables = $dotenv->load();
 }
 $variables = $dotenv->load();
@@ -108,7 +110,7 @@ array_walk(
 		}
 	}
 );
-unset( $dotenv, $variables, $variable_names );
+unset( $env_paths, $env_names, $dotenv, $variables, $variable_names );
 
 /**
  * Environment settings.
