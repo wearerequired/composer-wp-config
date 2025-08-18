@@ -53,7 +53,7 @@ global $table_prefix;
  * - Define constant for each variable if not already defined.
  */
 $env_paths = apply_filters( 'required_wp_config.env_paths', ___WP_CONFIG_ENV_PATHS___ );
-$env_names = apply_filters( 'required_wp_config.env_names', [] );
+$env_names = apply_filters( 'required_wp_config.env_names', [ '.env' ] );
 $dotenv    = Dotenv::createUnsafeImmutable( $env_paths, $env_names );
 $variables = $dotenv->load();
 if ( empty( $variables ) ) {
