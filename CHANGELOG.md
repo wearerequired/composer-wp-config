@@ -97,7 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create `wp-config.php` one level above the WordPress installation.
 * Include `require_once` call for Composer's `autoload.php`.
 
-[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/wearerequired/composer-wp-config/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/wearerequired/composer-wp-config/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/wearerequired/composer-wp-config/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/wearerequired/composer-wp-config/compare/0.9.0...1.0.0
 [0.9.0]: https://github.com/wearerequired/composer-wp-config/compare/0.8.0...0.9.0
