@@ -39,7 +39,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	/**
 	 * Name of the WordPress core package.
 	 */
-	public const WORDPRESS_CORE_PACKAGE_NAME = 'johnpbloch/wordpress-core';
+	public const WORDPRESS_CORE_PACKAGE_NAME = 'wp-core/wordpress';
 
 	/**
 	 * Package name of this plugin.
