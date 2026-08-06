@@ -85,6 +85,7 @@ array_walk(
 		switch ( $name ) {
 			// Some variables are not used as a constant.
 			case '_HTTP_HOST':
+			case '_HTTPS':
 			case 'URL_DEVELOPMENT':
 			case 'URL_STAGING':
 			case 'URL_PRODUCTION':
@@ -164,12 +165,14 @@ if ( ! defined( 'WP_HOME' ) ) {
 			'SERVER_NAME' => FILTER_SANITIZE_URL,
 		]
 	);
-	$secure = in_array( (string) $server['HTTPS'], [ 'on', '1' ], true );
-	$scheme = $secure ? 'https://' : 'http://';
+	// Outside of a web request, like WP-CLI, the server reports neither the host nor the scheme.
 	$name   = $server['SERVER_NAME'] ?: env( '_HTTP_HOST' );
+	$https  = $server['SERVER_NAME'] ? $server['HTTPS'] : ( env( '_HTTPS' ) ?? true );
+	$secure = filter_var( $https, FILTER_VALIDATE_BOOLEAN );
+	$scheme = $secure ? 'https://' : 'http://';
 	define( 'WP_HOME', $scheme . $name );
 
-	unset( $server, $secure, $scheme, $name );
+	unset( $server, $name, $https, $secure, $scheme );
 }
 
 defined( 'WP_SITEURL' ) || define( 'WP_SITEURL', WP_HOME );
