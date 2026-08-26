@@ -30,6 +30,10 @@ Copy [`.env.example`](res/.env.example) and save it as `.env`. By default the va
 * `LOGGED_IN_SALT`
 * `NONCE_SALT`
 
+### List of optional variables
+
+* `_HTTPS` (Used when `$_SERVER['SERVER_NAME']` is not set, like WP-CLI. Defaults to `true`, set it to `false` to build `WP_HOME` with `http://`.)
+
 See also the list of [default constants](#default-constants).
 
 ### Customize path to .env file
@@ -82,7 +86,7 @@ If the following variables are not defined they will be assigned a default value
 | `DB_COLLATE` | `''` |
 | `$table_prefix` | `'wp_'` |
 | `WP_CACHE_KEY_SALT` | Value of `WP_ENV` |
-| `WP_HOME` | Based on `$_SERVER['SERVER_NAME']`/`_HTTP_HOST` and `$_SERVER['HTTPS']` |
+| `WP_HOME` | Based on `$_SERVER['SERVER_NAME']`/`_HTTP_HOST` and `$_SERVER['HTTPS']`/`_HTTPS` |
 | `WP_SITEURL` |  Value of `WP_HOME` |
 | `WP_CONTENT_FOLDER_NAME` | `'content'` |
 | `WP_CONTENT_DIR` | `__DIR__ . '/' . WP_CONTENT_FOLDER_NAME` |
