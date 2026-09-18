@@ -38,8 +38,19 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 
 	/**
 	 * Name of the WordPress core package.
+	 *
+	 * @deprecated Use {@see Plugin::WORDPRESS_CORE_PACKAGE_TYPE} instead. WordPress core can be
+	 *             provided by more than one package, so it is detected by package type.
 	 */
 	public const WORDPRESS_CORE_PACKAGE_NAME = 'johnpbloch/wordpress-core';
+
+	/**
+	 * Type of the WordPress core package.
+	 *
+	 * Detecting core by type instead of by name supports every package that ships
+	 * WordPress core, for example `johnpbloch/wordpress-core` or `roots/wordpress-full`.
+	 */
+	public const WORDPRESS_CORE_PACKAGE_TYPE = 'wordpress-core';
 
 	/**
 	 * Package name of this plugin.
@@ -112,6 +123,22 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 	}
 
 	/**
+	 * Finds the installed WordPress core package.
+	 *
+	 * @param \Composer\Composer $composer Composer.
+	 * @return \Composer\Package\PackageInterface|null The WordPress core package, or null if not installed.
+	 */
+	public static function findWordPressPackage( Composer $composer ): ?PackageInterface {
+		foreach ( $composer->getRepositoryManager()->getLocalRepository()->getPackages() as $package ) {
+			if ( self::WORDPRESS_CORE_PACKAGE_TYPE === $package->getType() ) {
+				return $package;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Deletes wp-config.php after WordPress is being uninstalled.
 	 *
 	 * @param \Composer\Installer\PackageEvent $event The current event.
@@ -121,7 +148,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 		$operation = $event->getOperation();
 		$package   = $operation->getPackage();
 
-		if ( self::WORDPRESS_CORE_PACKAGE_NAME !== $package->getName() ) {
+		if ( self::WORDPRESS_CORE_PACKAGE_TYPE !== $package->getType() ) {
 			return;
 		}
 
@@ -154,10 +181,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 		}
 
 		$wordpressPackage = null;
-		if ( self::WORDPRESS_CORE_PACKAGE_NAME === $package->getName() ) {
+		if ( self::WORDPRESS_CORE_PACKAGE_TYPE === $package->getType() ) {
 			$wordpressPackage = $package;
 		} elseif ( self::PLUGIN_PACKAGE_NAME === $package->getName() ) {
-			$wordpressPackage = $event->getComposer()->getRepositoryManager()->getLocalRepository()->findPackage( self::WORDPRESS_CORE_PACKAGE_NAME, '*' );
+			$wordpressPackage = self::findWordPressPackage( $event->getComposer() );
 		}
 
 		if ( ! $wordpressPackage ) {

@@ -34,7 +34,7 @@ class BuildCommand extends BaseCommand {
 	 */
 	protected function execute( InputInterface $input, OutputInterface $output ): int { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		$composer         = $this->getComposer();
-		$wordpressPackage = $composer->getRepositoryManager()->getLocalRepository()->findPackage( Plugin::WORDPRESS_CORE_PACKAGE_NAME, '*' );
+		$wordpressPackage = Plugin::findWordPressPackage( $composer );
 
 		if ( ! $wordpressPackage ) {
 			throw new \RuntimeException( 'WordPress package not found' );
